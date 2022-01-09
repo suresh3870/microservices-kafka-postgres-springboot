@@ -15,12 +15,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/surabi/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UsersController {
 
     @Autowired
     RestaurantsService restaurantsService;
 
     @GetMapping("/ListMenu")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<Menu> viewMenu() {
         return restaurantsService.viewAllMenu();
     }

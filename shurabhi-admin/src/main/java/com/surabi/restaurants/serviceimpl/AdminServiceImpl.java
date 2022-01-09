@@ -46,6 +46,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public String UpdateUser(User user) {
         if(userRepository.existsById(user.getUsername())){
         String encodedPassword = passwordEncoder.encode(user.getPassword());

@@ -11,6 +11,8 @@ public interface AdminService {
 
     String CreateUser(User user);
 
+    List<User> getAllUser();
+
     String UpdateUser(User user);
 
     String deleteUser(String userName);

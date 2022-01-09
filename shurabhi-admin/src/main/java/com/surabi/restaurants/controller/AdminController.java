@@ -6,20 +6,23 @@ import com.surabi.restaurants.DTO.SaleDTO;
 import com.surabi.restaurants.entity.User;
 import com.surabi.restaurants.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Month;
 import java.util.List;
 
 @RestController
 @RequestMapping("/surabi/admin")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
 
     @Autowired
     AdminService adminService;
+
+    @GetMapping("/GetAllUser")
+    public List<User> getAllUser() {
+        return adminService.getAllUser();
+    }
 
     @GetMapping("/CreateUser")
     public String CreateUser(User user) {
