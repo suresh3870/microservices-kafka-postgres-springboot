@@ -4,12 +4,10 @@ import com.bezkoder.spring.security.postgresql.models.User;
 import com.bezkoder.spring.security.postgresql.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 50000)
 @RestController
@@ -45,5 +43,35 @@ public class TestController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public String adminAccess() {
 		return "Welcome to Admin Board";
+	}
+
+	@GetMapping("/deletUser")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String deleteUser(Long userID) {
+		if (userRepository.existsById(userID)) {
+			 userRepository.deleteById(userID);
+			return "user deleted successfully";
+		}
+		else {return "issue while deleting user";}
+	}
+
+	@PostMapping("/updateUser")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String updateUser(User user) {
+		if (userRepository.existsByUsername(user.getUsername())) {
+			userRepository.save(user);
+			return "user updated successfully";
+		}
+		else {return "issue while updating user";}
+	}
+
+	@GetMapping("/getUser")
+	@PreAuthorize("hasRole('ADMIN')")
+	public Optional<User> getUser(Long userID) {
+		if (userRepository.existsById(userID)) {
+			return userRepository.findById(userID);
+
+		}
+		return null;
 	}
 }
