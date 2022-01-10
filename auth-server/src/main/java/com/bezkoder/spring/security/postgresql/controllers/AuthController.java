@@ -2,11 +2,13 @@ package com.bezkoder.spring.security.postgresql.controllers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.bezkoder.spring.security.postgresql.payload.request.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -125,5 +127,17 @@ public class AuthController {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+	@PostMapping("/update")
+	public ResponseEntity<?> update(@Valid @RequestBody UpdateRequest updateRequest) {
+		User dbUser= userRepository.findById(updateRequest.getUserid()).orElse(null);;
+		dbUser.setEmail(updateRequest.getEmail());
+		dbUser.setPassword(encoder.encode(updateRequest.getPassword()));
+		Set<String> strRoles = updateRequest.getRole();
+		Set<Role> roles = new HashSet<>();
+		dbUser.setRoles(roles);
+		userRepository.save(dbUser);
+
+		return ResponseEntity.ok(new MessageResponse("User updated successfully!"));
 	}
 }
