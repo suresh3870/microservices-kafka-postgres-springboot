@@ -49,6 +49,11 @@ public class AdminController {
         return adminService.viewTodayBills();
     }
 
+    @GetMapping("/ViewMyBills")
+    public List<BillDTO>  viewMyBills(String userName) {
+        return adminService.viewMyBills(userName);
+    }
+
     @GetMapping("/ViewSaleByCity")
     public List<SaleDTO>  viewSaleByCity() {
         return adminService.viewSaleByCity();

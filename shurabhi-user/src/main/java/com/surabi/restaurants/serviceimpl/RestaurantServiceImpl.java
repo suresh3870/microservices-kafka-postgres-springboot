@@ -154,18 +154,14 @@ public class RestaurantServiceImpl implements RestaurantsService {
     }
 
     @Override
-    public BillOrderDetailsDTO viewMyBill(int billID) {
+    public BillOrderDetailsDTO viewMyBill(String userName) {
         List<BillDetailsDTO> billDetailsDTOS = new ArrayList<>();
-        if (billRepository.existsById(billID)) {
-            Orders orders = orderRepository.getOne(billID);
-            User orderUser = orders.getUser();
-            String orderUser1 = orderUser.getUsername();
-            System.out.println("users from DB for order is: " + orderUser);
+
 
                 Query nativeQuery = entityManager.createNativeQuery("select b.BILLID as BILL_ID,  u.USERNAME as USERNAME, m.ITEM as ITEM,  d.QUANTITY as QTY, m.PRICE as PRICE, d.ITEM_TOTALPRICE as ITEM_TOTALPRICE,b.BILL_AMOUNT as BILL_AMOUNT, b.PAID_BY as PAID_BY from menu m, orders o, ORDER_DETAILS d, users u , BILL b where m.menu_id=d.menu_id  and o.ORDER_ID=d.ORDER_ID and u.USERNAME=o.USERNAME  \n" +
                         "                        and b.ORDER_ID=O.ORDER_ID\n" +
-                        "                        and o.ORDER_ID=?1", "BillDTOMapping");
-                nativeQuery.setParameter(1, billID);
+                        "                        and u.USERNAME=?1", "BillDTOMapping");
+                nativeQuery.setParameter(1, userName);
                 List<BillDetailsDTO> list = nativeQuery.getResultList();
                 BillOrderDetailsDTO billOrderDetailsDTO = new BillOrderDetailsDTO();
                 BillDetailsDTO billDetailsDTO = list.get(0);
@@ -184,9 +180,7 @@ public class RestaurantServiceImpl implements RestaurantsService {
                 }
                 billOrderDetailsDTO.setBillDetailDTO(orderDetailDTO);
                 return billOrderDetailsDTO;
-            } else {
-                return null;
-            }
+
 
     }
 

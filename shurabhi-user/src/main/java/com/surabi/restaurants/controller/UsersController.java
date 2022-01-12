@@ -58,8 +58,8 @@ public class UsersController {
 
     @GetMapping("/ViewMyBill")
     public BillOrderDetailsDTO ViewMyBill(
-            @RequestParam(value = "billID", defaultValue = "1") int billID) {
-        return restaurantsService.viewMyBill(billID);
+            @RequestParam(value = "userName", defaultValue = "suresh") String userName) {
+        return restaurantsService.viewMyBill(userName);
     }
 
     @GetMapping("/All_orders")

@@ -25,7 +25,7 @@ public interface RestaurantsService {
 
     OrderResponse checkOut(int orderId);
 
-    public BillOrderDetailsDTO viewMyBill(int billID);
+    public BillOrderDetailsDTO viewMyBill(String userName);
 
     String getUserDetails();
 

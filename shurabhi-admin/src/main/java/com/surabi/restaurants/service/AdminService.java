@@ -26,4 +26,6 @@ public interface AdminService {
     List<MaxSaleDayDTO> viewSaleByMonth();
 
     List<MaxSaleDayDTO> viewMaxSaleInAMonth();
+
+    List<BillDTO> viewMyBills(String userName);
 }
