@@ -79,14 +79,14 @@ public class RestaurantServiceImpl implements RestaurantsService {
     }
 
     @Override
-    public String createBulkItem(List<OrderBulkDTO> orderBulkDTO, City city) {
+    public String createBulkItem(List<OrderBulkDTO> orderBulkDTO, City city, String username) {
         int savedOrderID = 0;
         Date date = new Date();
         Orders orders = new Orders();
         User user = new User();
         orders.setOrderDate(date);
         orders.setCity(city.name());
-        user.setUsername("ram");
+        user.setUsername(username);
         orders.setUser(user);
         Orders savedOrder = orderRepository.save(orders);
         savedOrderID = savedOrder.getOrderId();

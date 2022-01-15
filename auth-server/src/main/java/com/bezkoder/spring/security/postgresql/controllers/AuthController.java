@@ -8,7 +8,10 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.bezkoder.spring.security.postgresql.Enum.Authority;
+import com.bezkoder.spring.security.postgresql.entity.Users;
 import com.bezkoder.spring.security.postgresql.payload.request.UpdateRequest;
+import com.bezkoder.spring.security.postgresql.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,6 +46,9 @@ public class AuthController {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	UsersRepository usersRepository;
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -122,7 +128,13 @@ public class AuthController {
 				}
 			});
 		}
-
+		Users users=new Users();
+		String encodedPassword  = encoder.encode(signUpRequest.getPassword());
+		users.setEnabled(Boolean.TRUE);
+		users.setPassword(encodedPassword);
+		users.setUsername(signUpRequest.getUsername());
+		users.setAuthority(Authority.USER);
+		usersRepository.save(users);
 		user.setRoles(roles);
 		userRepository.save(user);
 

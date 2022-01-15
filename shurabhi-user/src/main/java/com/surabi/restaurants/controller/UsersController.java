@@ -41,8 +41,8 @@ public class UsersController {
     //}
 
     @PostMapping(value = "/Order")
-    public String order(@RequestBody List<OrderBulkDTO> orderBulkDTO, City city) {
-        return restaurantsService.createBulkItem(orderBulkDTO, city);
+    public String order(@RequestBody List<OrderBulkDTO> orderBulkDTO, City city, String user) {
+        return restaurantsService.createBulkItem(orderBulkDTO, city, user);
     }
 
     @GetMapping("/CheckOut")

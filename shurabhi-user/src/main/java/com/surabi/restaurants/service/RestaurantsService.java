@@ -17,7 +17,7 @@ public interface RestaurantsService {
 
     Optional<Menu> getMenuById(int menuID);
 
-    String createBulkItem(List<OrderBulkDTO> orderBulkDTO, City city);
+    String createBulkItem(List<OrderBulkDTO> orderBulkDTO, City city, String user);
 
     List<Orders> getAllOrders();
 
