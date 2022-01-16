@@ -87,7 +87,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<BillDTO>  viewTodayBills() {
         Query nativeQuery = entityManager.createNativeQuery("select distinct b.BILLID as BILL_ID,  u.USERNAME as USERNAME, b.BILL_DATE as BILL_DATE ,b.BILL_AMOUNT as BILL_AMOUNT from  users u , BILL b, ORDERS o where  u.USERNAME=o.USERNAME  \n" +
-                "and o.username=u.username","BillViewMapping" );
+                "and o.username=u.username and o.order_id=b.order_id","BillViewMapping" );
         List<BillDTO> list =  nativeQuery.getResultList();
         return list;
     }
