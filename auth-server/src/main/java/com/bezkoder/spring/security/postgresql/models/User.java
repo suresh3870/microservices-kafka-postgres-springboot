@@ -16,7 +16,9 @@ import javax.validation.constraints.Size;
 		})
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue (strategy= GenerationType.AUTO, generator="usrSeqGen")
+	@SequenceGenerator(name = "usrSeqGen", sequenceName = "usr_seq",allocationSize = 1,initialValue =4)
 	private Long id;
 
 	@NotBlank
