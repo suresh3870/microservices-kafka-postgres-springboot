@@ -16,7 +16,7 @@ public class Orders {
     @Temporal(TemporalType.TIMESTAMP)
     public Date OrderDate;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="username", nullable=false)
     private User user;
 
